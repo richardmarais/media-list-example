@@ -4,12 +4,12 @@
 <div class="container">
   <div class="row">
     <nav class="navbar">
-      <input class="form-control" type="text" placeholder="Search by Title, Keyword, or File Type.." name="search" autofocus [(ngModel)]="filterBar">      
+      <input size="50" class="form-control" type="text" placeholder="Search by Title, Keyword, or File Type.." name="search" autofocus [(ngModel)]="filterBar">      
     </nav>
 
-    <table mat-table class="table">
+    <table class="table">
       <thead>
-          <th mat-header-cell>
+          <th>
               <div>
                   <label>Filter By:&nbsp;</label>
                   <select [(ngModel)]="filterBy">
@@ -18,7 +18,7 @@
                   </select>
               </div>
           </th>
-          <th mat-header-cell>
+          <th>
               <div>
                   <label>Sort By:&nbsp;</label>
                   <select [(ngModel)]="sortBy">
@@ -27,9 +27,9 @@
                   </select>
               </div>
           </th>
-          <th mat-header-cell>
+          <th>
                 <p>
-                  <button mat-button (click)="filterBy = null; sortBy = null">Clear</button>
+                  <button mat-button (click)="filterBy = ''; sortBy = 'date'">Clear</button>
                 </p>
           </th>
       </thead>

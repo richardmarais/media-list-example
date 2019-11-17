@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SelectorMatcher } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -66,4 +67,7 @@ export class AppComponent {
       "date": "2019-01-31"
     }
   ];
+
+  filterBy = "";
+  sortBy = "date";
 }
