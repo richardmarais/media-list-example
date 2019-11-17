@@ -4,25 +4,47 @@
 <div class="container">
   <div class="row">
     <nav class="navbar">
-      <input class="form-control" type="text" placeholder="Search by Title, Keyword, or File Type.." name="search" [(ngModel)]="filter">      
+      <input class="form-control" type="text" placeholder="Search by Title, Keyword, or File Type.." name="search" autofocus [(ngModel)]="filterBar">      
     </nav>
-    <table class="table">
+
+    <table mat-table class="table">
       <thead>
-        <tr>
-          <th (click)="sort('name')">Filter By
-            <span class="glyphicon sort-icon" *ngIf="key =='name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          <th mat-header-cell>
+              <div>
+                  <label>Filter By:&nbsp;</label>
+                  <select [(ngModel)]="filterBy">
+                    <option value="">All Media</option>
+                    <option *ngFor="let media of medias" value={{media.type}}>{{media.type}}</option>
+                  </select>
+              </div>
           </th>
-          <th (click)="sort('type')">Sort By
-            <span class="glyphicon sort-icon" *ngIf="key =='type'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          <th mat-header-cell>
+              <div>
+                  <label>Sort By:&nbsp;</label>
+                  <select [(ngModel)]="sortBy">
+                    <option value="date">Date Uploaded</option>
+                    <option value="name">Alphabetical</option>
+                  </select>
+              </div>
           </th>
-        </tr>
+          <th mat-header-cell>
+                <p>
+                  <button mat-button (click)="filterBy = null; sortBy = null">Clear</button>
+                </p>
+          </th>
       </thead>
       <tbody>
-        <tr *ngFor="let media of medias | orderBy: key : reverse | filter:filter | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+        <tr *ngFor="let media of medias | orderBy: sortBy : false | filter:filterBar | filter:filterBy | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
           <td>{{media.name}}</td>
+          <td>{{media.date}}</td>
+          <td>{{media.type}}</td>
         </tr>
       </tbody>
-      <pagination-controls class="float-right" (pageChange)="p = $event"></pagination-controls>
+        <tr>
+            <td colspan="3">
+                <pagination-controls class="float-right" (pageChange)="p = $event"></pagination-controls>
+            </td>
+        </tr>
     </table>
   </div>
 </div>

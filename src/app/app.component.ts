@@ -11,58 +11,59 @@ export class AppComponent {
     {
       "id":"1",
       "name": "Video File 1",
-      "type": "video"
+      "type": "Videos",
+      "date": "2019-01-22"
     },
     {
       "id":"2",
       "name": "Interactive Video File 1",
-      "type": "interactive video"
+      "type": "Interactive Vids",
+      "date": "2019-01-23"
     },
     {
       "id":"3",
       "name": "Audio File 1",
-      "type": "audeo"
+      "type": "Audio",
+      "date": "2019-01-24"
     },
     {
       "id":"4",
       "name": "Image File 1",
-      "type": "image"
+      "type": "Images",
+      "date": "2019-01-25"
     },
     {
       "id":"5",
       "name": "Document File 1",
-      "type": "document"
+      "type": "Documents",
+      "date": "2019-01-26"
     },
     {
       "id":"6",
       "name": "Video File 2",
-      "type": "video"
+      "type": "Videos",
+      "date": "2019-01-27"
     },
     {
       "id":"7",
       "name": "Audio File 2",
-      "type": "audio"
+      "type": "Audio",
+      "date": "2019-01-28"
     },{
       "id":"8",
       "name": "Image File 2",
-      "type": "image"
+      "type": "Images",
+      "date": "2019-01-29"
     },{
       "id":"9",
       "name": "Video File 3",
-      "type": "video"
+      "type": "Videos",
+      "date": "2019-01-30"
     },{
       "id":"10",
       "name": "Document File 2",
-      "type": "document"
+      "type": "Documents",
+      "date": "2019-01-31"
     }
   ];
-
-  //sorting
-  key: string = 'name';
-  reverse: boolean = false;
-  sort(key){
-    this.key = key;
-    this.reverse = !this.reverse;
-  }
-  p: number = 1;
 }
