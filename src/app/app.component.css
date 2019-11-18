@@ -1,0 +1,11 @@
+.search {
+    display: inline-flex;
+  }
+  
+  .slide {
+    float: left;
+  }
+
+  .mat-icon {
+    padding-top: 8px;
+  }

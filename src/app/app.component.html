@@ -4,7 +4,10 @@
 <div class="container">
   <div class="row">
     <nav class="navbar">
-      <input (ngModelChange)=search($event) size="50" class="form-control" type="text" placeholder="Search by Title, Keyword, or File Type.." name="search" autofocus [value]="searchBy" [(ngModel)]="filterBar">      
+      <div class="search">
+          <input (ngModelChange)=search($event) size="50" class="form-control" type="text" placeholder="Search by Title, Keyword, or File Type.." name="search" autofocus [value]="searchBy" [(ngModel)]="filterBar">
+          <mat-icon>search</mat-icon>
+      </div>
     </nav>
 
     <table class="table">
@@ -29,7 +32,7 @@
           </th>
           <th>
               <p>
-                <button mat-button (click)="clear()"><mat-icon>clear_all</mat-icon>Clear</button>
+                <button mat-button (click)="clear()"><mat-icon>clear</mat-icon></button>
               </p>
             </th>
               <th>
