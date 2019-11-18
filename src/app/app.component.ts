@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SelectorMatcher } from '@angular/compiler';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,10 @@ import { SelectorMatcher } from '@angular/compiler';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'media-list-example';
-  medias = [
+
+  private title : string = 'media-list-example';
+
+  private mediaData : Array<any> = [
     {
       "id":"1",
       "name": "Video File 1",
@@ -68,6 +71,50 @@ export class AppComponent {
     }
   ];
 
-  filterBy = "";
-  sortBy = "date";
+  private filterBy : string = "";
+  private sortBy : string = "date";
+  private medias : Array<any> = [];
+  private searchBy : string = "";
+  private uniqueMediaTypes : Array<string> [];
+  private sortOrder : number = 1;
+
+  ngOnInit() : void {
+    this.medias = this.mediaData;
+    this.uniqueMediaTypes = Array.from(new Set(this.mediaData.map(m => m.type)));
+  }
+
+  filter(filterBy : string) : void {
+    this.filterBy = filterBy;
+    this.medias = this.mediaData.filter(f => this.isVisible(f));
+  }
+
+  search(searchBy : string) : void {
+    this.searchBy = searchBy;
+    this.medias = this.mediaData.filter(f => this.isVisible(f));
+  }
+
+  isVisible(f : any) : boolean {
+    return (f.name.toLowerCase().includes(this.searchBy.toLowerCase()) || f.type.toLowerCase().includes(this.searchBy.toLowerCase()))
+    && (this.filterBy.length > 0 ? f.type === this.filterBy : true);
+  }
+
+  sort(sortBy : string) {
+    this.sortBy = sortBy;
+    this.medias = this.medias.sort((a, b) => (a[this.sortBy] > b[this.sortBy]) ? this.sortOrder*1 : this.sortOrder*-1);
+  }
+
+  order() {
+    this.sortOrder = this.sortOrder*-1;
+    this.sort(this.sortBy);
+  }
+
+  clear() {
+    this.sortOrder = 1;
+    this.sortBy = "date";
+    this.searchBy = "";
+    this.filterBy = "";
+    this.medias = this.mediaData;
+    this.sort(this.sortBy);
+    this.search(this.filterBy);
+  }
 }

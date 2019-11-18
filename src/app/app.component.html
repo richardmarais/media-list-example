@@ -4,44 +4,49 @@
 <div class="container">
   <div class="row">
     <nav class="navbar">
-      <input size="50" class="form-control" type="text" placeholder="Search by Title, Keyword, or File Type.." name="search" autofocus [(ngModel)]="filterBar">      
+      <input (ngModelChange)=search($event) size="50" class="form-control" type="text" placeholder="Search by Title, Keyword, or File Type.." name="search" autofocus [value]="searchBy" [(ngModel)]="filterBar">      
     </nav>
 
     <table class="table">
       <thead>
           <th>
               <div>
-                  <label>Filter By:&nbsp;</label>
-                  <select [(ngModel)]="filterBy">
+                  <label>Filter By&nbsp;</label>
+                  <select [(ngModel)]="filterBy" (change)="filter($event.target.value)">
                     <option value="">All Media</option>
-                    <option *ngFor="let media of medias" value={{media.type}}>{{media.type}}</option>
+                    <option *ngFor="let type of uniqueMediaTypes" value={{type}}>{{type}}</option>
                   </select>
               </div>
           </th>
           <th>
               <div>
-                  <label>Sort By:&nbsp;</label>
-                  <select [(ngModel)]="sortBy">
+                  <label>Sort By&nbsp;</label>
+                  <select [(ngModel)]="sortBy" (change)="sort($event.target.value)">
                     <option value="date">Date Uploaded</option>
                     <option value="name">Alphabetical</option>
                   </select>
               </div>
           </th>
           <th>
-                <p>
-                  <button mat-button (click)="filterBy = ''; sortBy = 'date'">Clear</button>
-                </p>
-          </th>
+              <p>
+                <button mat-button (click)="clear()"><mat-icon>clear_all</mat-icon>Clear</button>
+              </p>
+            </th>
+              <th>
+              <p>
+                <button mat-button (click)="order()"><mat-icon>{{sortOrder === 1 ? 'arrow_downward' : 'arrow_upward'}}</mat-icon></button>
+              </p>
+            </th>
       </thead>
       <tbody>
-        <tr *ngFor="let media of medias | orderBy: sortBy : false | filter:filterBar | filter:filterBy | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+        <tr *ngFor="let media of medias | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
           <td>{{media.name}}</td>
           <td>{{media.date}}</td>
-          <td>{{media.type}}</td>
+          <td colspan="2">{{media.type}}</td>
         </tr>
       </tbody>
         <tr>
-            <td colspan="3">
+            <td colspan="4">
                 <pagination-controls class="float-right" (pageChange)="p = $event"></pagination-controls>
             </td>
         </tr>
